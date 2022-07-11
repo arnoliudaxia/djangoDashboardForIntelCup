@@ -10,12 +10,28 @@ from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render,redirect
 
+from apps.labdbAPI.models import meter_config,meter_data
+
 isDebug = True
 
 
 @login_required(login_url="/login/")
 def index(request):
-    return redirect("home/welcome.html")
+    # return render(request,"home/welcome.html", {"debug": isDebug})
+    return redirect("/welcome.html")
+
+@login_required(login_url="/login/")
+def homepage(request):
+    meter_configs=meter_config.objects.all()
+    context={
+        "debug": isDebug,
+        "url": request.path,
+        "$meter_configs$": meter_configs
+    }
+    return render(request,"home/welcome.html", context)
+
+
+
 
 @login_required(login_url="/login/")
 def debugPages(request):

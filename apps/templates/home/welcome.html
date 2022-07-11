@@ -29,7 +29,47 @@
                                             <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                                             </p>
                                         </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>仪表注册管理</h5>
+                                        <span class="d-block m-t-5">在这里注册新仪表和管理已有仪表</span>
                                     </div>
+                                    <!--注册表UI-->
+                                    <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table" id="meterConfigTable">
+                                                    <thead>
+                                                        <tr>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-8">
+
+                                            <input type="text" class="form-control" placeholder="新仪表名" id="meterName">
+
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-primary" title="" onclick="registerMeter(this)">注册仪表</button>
+                                        </div>
+                                    </div>
+                                    <!--删除表UI-->
+                                    <div class="row justify-content-center">
+                                        <div class="col-8">
+                                            <input type="text" class="form-control" placeholder="要删除的仪表GUID" id="meterGUID2Remove">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-danger" title="" onclick="removeMeter(this)">删除仪表</button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
                             <!-- [ Main Content ] end -->
                         </div>
@@ -44,4 +84,99 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+{# AJAX加载仪表配置 #}
+    <script>
+    function flashTable()
+    {
+            var Showtable=document.getElementById("meterConfigTable")
+    var tableHead=Showtable.children[0].children[0];
+    var tableBody=Showtable.children[1];
+    {#clear table content#}
+    tableHead.innerHTML="";
+    tableBody.innerHTML="";
+    var meterconfigs;
+    $.get("labdb/meterconfig",function (data) {
+      meterconfigs=data;
+      //添加表头，也是数据库里的所有字段
+      let labels=meterconfigs.labels;
+      //先添加一列#，表示第几个
+      let newth=document.createElement("th");
+      newth.innerText="#";
+      tableHead.appendChild(newth);
+      for(let i=0; i<labels.length; i++)
+        {
+            console.log(labels[i]);
+            let newth=document.createElement("th");
+            newth.innerText=labels[i];
+            tableHead.appendChild(newth);
+        }
+      //现在开始整表体
+      let meters=meterconfigs.meters;
+        for(let i=0; i<meters.length; i++)
+        {
+            console.log(meters[i]);
+            let newrow=document.createElement("tr");
+            let newNumber=document.createElement("th");
+                newNumber.innerText=i+1;
+            let newGUID=document.createElement("th");
+                newGUID.innerText=meters[i].meterGUID;
+            let newName=document.createElement("th");
+                newName.innerText=meters[i].meterName;
+            newrow.appendChild(newNumber);
+            newrow.appendChild(newGUID);
+            newrow.appendChild(newName);
+
+
+            tableBody.appendChild(newrow);
+        }
+
+    });
+    }
+    $(function(){
+        flashTable();
+    });
+
+    function registerMeter(thisbtn)
+    {
+        thisbtn.innerText="注册中";
+        let meterName=document.getElementById("meterName").value;
+        if (meterName==='')
+        {
+            alert("请输入表名!");
+            return;
+        }
+        $.get("labdb/register?name="+meterName,function (response){
+            {#alert(response);#}
+
+            flashTable();
+            thisbtn.innerText="注册仪表";
+        })
+    }
+
+    function removeMeter(thisbtn)
+    {
+        thisbtn.innerText="删除中";
+
+        let meterGUID=document.getElementById("meterGUID2Remove").value;
+        if(meterGUID==='')
+        {
+            alert("请输入表的GUID！可以从上方的表格中复制");
+            return;
+        }
+        $.get("labdb/remove?guid="+meterGUID,function (response){
+            if (response!="200")
+            {
+                alert(response);
+
+            }
+            flashTable();
+            thisbtn.innerText="删除仪表";
+
+        })
+
+    }
+    </script>
+
+
+{% endblock javascripts %}

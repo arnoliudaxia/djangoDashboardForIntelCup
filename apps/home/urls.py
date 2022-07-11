@@ -8,11 +8,16 @@ from apps.home import views
 
 urlpatterns = [
 
+    # index redir
+    path('', views.index, name='index'),
     # The home page
-    path('', views.index, name='home'),
+    path('welcome.html', views.homepage, name='welcome'),
+
+
+
 
     re_path("UIExamples/.*", views.debugPages, name='debugPages'),
     # Matches any html file
-    re_path(r'^.*\.*', views.pages, name='pages'),
+    # re_path(r'^.*\.*', views.pages, name='pages'),
 
 ]

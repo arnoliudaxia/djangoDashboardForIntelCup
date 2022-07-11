@@ -81,25 +81,35 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'db.sqlite3',
+#     },
+#     "meterDatabase": {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME':"meterDB",
+#             'USER': "root",
+#             'PASSWORD': os.getenv('DB_PASSWORD', 'root'),
+#             'HOST': os.getenv('DB_HOST', 'localhost'),
+#             'PORT': os.getenv('DB_PORT', 3306),
+#         }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "meterDB",
+        'USER': "root",
+        'PASSWORD': os.getenv('DB_PASSWORD', 'root'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', 3306),
     },
-    "meterDatabase": {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME':"meterDB",
-            'USER': "root",
-            'PASSWORD': os.getenv('DB_PASSWORD', 'root'),
-            'HOST': os.getenv('DB_HOST', 'localhost'),
-            'PORT': os.getenv('DB_PORT', 3306),
-        }
 }
 
-# DATABASE_ROUTERS = ['mall.database_router.DatabaseAppsRouter']
-DATABASE_APPS_MAPPING = {
-    'labdbAPI': 'meterDatabase',
-}
+# DATABASE_ROUTERS = ['core.database_router.DatabaseAppsRouter']
+# DATABASE_APPS_MAPPING = {
+#     'labdbAPI': 'meterDatabase',
+# }
 
 TIME_ZONE = "Asia/Shanghai"
 

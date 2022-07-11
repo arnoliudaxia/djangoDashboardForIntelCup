@@ -11,6 +11,7 @@ urlpatterns = [
     # The home page
     path('', views.index, name='home'),
 
+    re_path("UIExamples/.*", views.debugPages, name='debugPages'),
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
 

@@ -12,67 +12,53 @@
         </div>
         <div class="navbar-content scroll-div">
             <ul class="nav pcoded-inner-navbar">
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Navigation</label>
+                <li class="nav-item {% if 'welcome' in segment %} active {% endif %}">
+                    <a href="/welcome.html" class="nav-link ">
+                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                        <span class="pcoded-mtext">主页</span>
+                    </a>
                 </li>
-                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
+                <li class="nav-item pcoded-menu-caption">
+                    <label>实验室</label>
+                </li>
+                <li class="nav-item {% if labname == "1" %} active {% endif %}">
+                    <a href="/lab.html?id=1" class="nav-link ">
+                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                        <span class="pcoded-mtext">lab1</span>
+                    </a>
+                </li>
+                {% if debug == True %}
+                <li class="nav-item pcoded-menu-caption">
+                    <label>开发人员参考</label>
+                </li>
+                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
                     class="nav-item {% if 'index' in segment %} active {% endif %}">
-                    <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
-                            class="pcoded-mtext">Dashboard</span></a>
+                    <a href="/UIExamples/layout.html" class="nav-link "><span class="pcoded-micon"><i class="bi bi-watch"></i></span><span
+                            class="pcoded-mtext">布局库</span></a>
                 </li>
-                <li data-username="Profile Page" 
-                    class="nav-item {% if 'profile' in segment %} active {% endif %}">
-                    <a href="/profile.html" class="nav-link">
-                        <span class="pcoded-micon"><i class="feather icon-user"></i></span>
-                            <span class="pcoded-mtext">Profile Page</span></a>
-                </li>                
-                <li class="nav-item pcoded-menu-caption">
-                    <label>UI Element</label>
-                </li>
+                {% endif %}
                 <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
                     class="nav-item pcoded-hasmenu ">
                     <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
                             class="pcoded-mtext">Components</span></a>
                     <ul class="pcoded-submenu">
-                        <li class=""><a href="/bc_button.html" class="">Button</a></li>
-                        <li class=""><a href="/bc_badges.html" class="">Badges</a></li>
-                        <li class=""><a href="/bc_breadcrumb-pagination.html" class="">Breadcrumb & paggination</a></li>
-                        <li class=""><a href="/bc_collapse.html" class="">Collapse</a></li>
-                        <li class=""><a href="/bc_tabs.html" class="">Tabs & pills</a></li>
-                        <li class=""><a href="/bc_typography.html" class="">Typography</a></li>
-
-
-                        <li class=""><a href="/icon-feather.html" class="">Feather<span
+                        <li class=""><a href="/UIExamples/bc_button.html" class="">Button</a></li>
+                        <li class=""><a href="/UIExamples/bc_badges.html" class="">Badges</a></li>
+                        <li class=""><a href="/UIExamples/bc_breadcrumb-pagination.html" class="">导航（面包屑和换页）</a></li>
+                        <li class=""><a href="/UIExamples/bc_collapse.html" class="">Toggle</a></li>
+                        <li class=""><a href="/UIExamples/bc_tabs.html" class="">Tabs & pills</a></li>
+                        <li class=""><a href="/UIExamples/bc_typography.html" class="">段落格式</a></li>
+                        <li class=""><a href="/UIExamples/icon-feather.html" class="">Feather ICON<span
                                 class="pcoded-badge label label-danger">NEW</span></a></li>
+                        <li class=""><a href="/UIExamples/form_elements.html" class="">表单</a></li>
+                        <li class=""><a href="/UIExamples/tbl_bootstrap.html" class="">表格</a></li>
                     </ul>
-                </li>
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Forms & table</label>
-                </li>
-                <li data-username="form elements advance componant validation masking wizard picker select"
-                    class="nav-item {% if 'form_elements' in segment %} active {% endif %}">
-                    <a href="/form_elements.html" class="nav-link "><span class="pcoded-micon"><i
-                            class="feather icon-file-text"></i></span><span
-                            class="pcoded-mtext">Form elements</span></a>
-                </li>
-                <li data-username="Table bootstrap datatable footable" 
-                    class="nav-item {% if 'tbl_bootstrap' in segment %} active {% endif %}">
-                    <a href="/tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i
-                            class="feather icon-server"></i></span><span class="pcoded-mtext">Table</span></a>
-                </li>
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Chart & Maps</label>
                 </li>
                 <li data-username="Charts Morris" 
                     class="nav-item {% if 'chart-morris' in segment %} active {% endif %}">
                     <a href="/chart-morris.html" class="nav-link "><span
                         class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
                 </li>
-                <li data-username="Maps Google" 
-                    class="nav-item {% if 'map-google' in segment %} active {% endif %}">
-                    <a href="/map-google.html" class="nav-link "><span
-                        class="pcoded-micon"><i class="feather icon-map"></i></span><span
-                        class="pcoded-mtext">Maps</span></a></li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Pages</label>
                 </li>

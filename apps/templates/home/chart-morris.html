@@ -14,22 +14,6 @@
             <div class="pcoded-content">
                 <div class="pcoded-inner-content">
                     <!-- [ breadcrumb ] start -->
-                    <div class="page-header">
-                        <div class="page-block">
-                            <div class="row align-items-center">
-                                <div class="col-md-12">
-                                    <div class="page-header-title">
-                                        <h5 class="m-b-10">Morris Chart</h5>
-                                    </div>
-                                    <ul class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:">Chart</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:">Morris Chart</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- [ breadcrumb ] end -->
                     <div class="main-body">
                         <div class="page-wrapper">
@@ -42,7 +26,7 @@
                                             <h5>Bar [ Simple ] Chart</h5>
                                         </div>
                                         <div class="card-block">
-                                            <div id="morris-bar-chart" style="height:300px"></div>
+                                            <canvas id="myChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -123,9 +107,31 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-    <!-- chart-morris Js -->
-    <script src="{{ ASSETS_ROOT }}/plugins/chart-morris/js/raphael.min.js"></script>
-    <script src="{{ ASSETS_ROOT }}/plugins/chart-morris/js/morris.min.js"></script>
-    <script src="{{ ASSETS_ROOT }}/js/pages/chart-morris-custom.js"></script>
+    <!-- chart.js -->
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // 要创建的图表类型
+    type: 'line',
+
+    // 数据集
+    data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45],
+        }]
+    },
+
+    // 配置选项
+    options: {}
+});
+
+</script>
+
 
 {% endblock javascripts %}

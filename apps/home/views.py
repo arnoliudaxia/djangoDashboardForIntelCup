@@ -8,30 +8,41 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from django.shortcuts import render,redirect
+
+isDebug = True
 
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
+    return redirect("home/welcome.html")
 
-    html_template = loader.get_template('home/index.html')
-    return HttpResponse(html_template.render(context, request))
-
+@login_required(login_url="/login/")
+def debugPages(request):
+    print("看看Example吧")
+    if not isDebug:
+        return render(request,'home/page-404.html')
+    sub_page = request.path.split('/')[-1]
+    html_template = loader.get_template('home/UIExamples/' + sub_page)
+    return HttpResponse(html_template.render({"debug":isDebug}, request))
 
 @login_required(login_url="/login/")
 def pages(request):
-    context = {}
+    context = {"debug": isDebug}
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
     try:
 
-        load_template = request.path.split('/')[-1]
+        sub_page = request.path.split('/')[-1]
 
-        if load_template == 'admin':
+        if sub_page == 'admin':
             return HttpResponseRedirect(reverse('admin:index'))
-        context['segment'] = load_template
+        context['segment'] = sub_page
 
-        html_template = loader.get_template('home/' + load_template)
+        if ("lab" in sub_page) and request.GET.get("id"):
+            context["labname"] = request.GET.get("id")
+
+        html_template = loader.get_template('home/' + sub_page)
         return HttpResponse(html_template.render(context, request))
 
     except template.TemplateDoesNotExist:

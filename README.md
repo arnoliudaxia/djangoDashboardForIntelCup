@@ -190,7 +190,7 @@ The project is coded using a simple and intuitive structure presented below:
    |         |    |-- register.html         # Register page
    |         |
    |         |-- home/                      # UI Kit Pages
-   |              |-- index.html            # Index page
+   |              |-- layout.html            # Index page
    |              |-- 404-page.html         # 404 page
    |              |-- *.html                # All other pages
    |

@@ -21,6 +21,18 @@
                         <div class="page-wrapper">
                             <!-- [ Main Content ] start -->
                             <div class="row">
+                                <div class="col-xl-6">
+                                <div class="card">
+                                        <div class="card-header">
+                                            <h5>11c5ad50-00f6-11ed-a237-087190749d3d</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <canvas id="myChart"></canvas>
+                                            <button type="button" class="btn btn-primary" title="" onclick="recordData('11c5ad50-00f6-11ed-a237-087190749d3d',Math.floor(Math.random() * 20))">随机生成</button>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <!-- [ Main Content ] end -->
                         </div>
@@ -34,5 +46,40 @@
 
 {% endblock content %}
 
+
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+        <!-- chart.js -->
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // 要创建的图表类型
+    type: 'line',
+
+    // 数据集
+    data: {
+        labels: [],
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [],
+        }]
+    },
+
+    // 配置选项
+    options: {}
+});
+
+</script>
+    <script src="{{ASSETS_ROOT}}/js/meterData.js"></script>
+<script>
+
+$(function (){
+setInterval(retriveMeterData,2000);
+});
+</script>
+
+{% endblock javascripts %}

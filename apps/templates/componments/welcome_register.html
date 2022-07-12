@@ -1,0 +1,40 @@
+<div class="card">
+                                    <div class="card-header">
+                                        <h5>仪表注册管理</h5>
+                                        <span class="d-block m-t-5">在这里注册新仪表和管理已有仪表</span>
+                                    </div>
+                                    <!--注册表UI-->
+                                    <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table" id="meterConfigTable">
+                                                    <thead>
+                                                        <tr>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-8">
+
+                                            <input type="text" class="form-control" placeholder="新仪表名" id="meterName">
+
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-primary" title="" onclick="registerMeter(this)">注册仪表</button>
+                                        </div>
+                                    </div>
+                                    <!--删除表UI-->
+                                    <div class="row justify-content-center">
+                                        <div class="col-8">
+                                            <input type="text" class="form-control" placeholder="要删除的仪表GUID" id="meterGUID2Remove">
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-danger" title="" onclick="removeMeter(this)">删除仪表</button>
+                                        </div>
+                                    </div>
+
+
+                                </div>

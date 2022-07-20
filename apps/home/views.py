@@ -16,7 +16,7 @@ from core.settings import DEBUG
 from apps.labdbAPI.models import lab_config, meter_config, ai_process
 import psutil
 
-isDebug = DEBUG
+isDebug = True
 
 
 def getAllLabNames():
@@ -153,7 +153,7 @@ def debugPages(request):
 
 @login_required(login_url="/login/")
 def pages(request):
-    context = {"debug": isDebug}
+    context = {"debug": True}
     # All resource paths end in .html.
     # Pick out the html file name from the url. And load that template.
     try:

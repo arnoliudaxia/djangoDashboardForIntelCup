@@ -27,7 +27,7 @@
                                     class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu bg-info">
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(10)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(10)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             10
@@ -38,7 +38,7 @@
                                     </div>
 
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(30)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(30)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             30
@@ -50,7 +50,7 @@
 
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(60)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(60)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             1
@@ -61,7 +61,7 @@
                                     </div>
 
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(300)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(300)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             5
@@ -72,7 +72,7 @@
                                     </div>
 
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(600)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(600)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             10
@@ -83,7 +83,7 @@
                                     </div>
 
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(1800)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(1800)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             30
@@ -95,7 +95,7 @@
 
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(3600)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(3600)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             1
@@ -106,7 +106,7 @@
                                     </div>
 
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(43200)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(43200)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             12
@@ -117,7 +117,7 @@
                                     </div>
 
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(86400)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(86400)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             24
@@ -129,7 +129,7 @@
 
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(-1)">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime_{{ meter.GUID|cut:"-"}}(-1)">
                                     <div class="row">
                                         <div class="col-4 text-left">
                                             所有数据
@@ -147,11 +147,12 @@
     </div>
 
     <script>
-        let filterTime = -1;//s为单位,-1代表获取所有数据
-        function changeFilterTime(time) {
-            filterTime = time;
-            retriveMeterData('{{ meter.GUID }}', chart_{{ meter.GUID|cut:"-"}}, filterTime);
+        let filterTime_{{ meter.GUID|cut:"-"}} = -1;//s为单位,-1代表获取所有数据
+        function changeFilterTime_{{ meter.GUID|cut:"-"}}(time) {
+            filterTime_{{ meter.GUID|cut:"-"}} = time;
+            retriveMeterData('{{ meter.GUID }}', chart_{{ meter.GUID|cut:"-"}}, filterTime_{{ meter.GUID|cut:"-"}});
         }
+
 
         var ctx_{{ meter.GUID|cut:"-"}} = document.getElementById('chart_{{ meter.GUID }}').getContext('2d');
         var chart_{{ meter.GUID|cut:"-"}} = new Chart(ctx_{{ meter.GUID|cut:"-"}}, {
@@ -185,7 +186,7 @@
 
         $(function () {
             setInterval(function () {
-                retriveMeterData('{{ meter.GUID }}', chart_{{ meter.GUID|cut:"-"}}, filterTime);
+                retriveMeterData('{{ meter.GUID }}', chart_{{ meter.GUID|cut:"-"}}, filterTime_{{ meter.GUID|cut:"-"}});
             }, 1500);
         });
     </script>

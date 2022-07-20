@@ -4,6 +4,8 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import os, environ
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 env = environ.Env(
     # set casting, default value

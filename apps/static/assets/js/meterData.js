@@ -11,10 +11,10 @@ function recordData(guid,value)
     });
 }
 
-function retriveMeterData()
+function retriveMeterData(guid,chart,neartime)
 {
 var meterDataGet;
-    $.get("labdb/retrive?guid=11c5ad50-00f6-11ed-a237-087190749d3d",function (response)
+    $.get(`labdb/retrive?guid=${guid}&nearseconds=${neartime}`,function (response)
     {
         chart.data.datasets[0].label=response.meterName;
        meterDataGet=response.meterData;

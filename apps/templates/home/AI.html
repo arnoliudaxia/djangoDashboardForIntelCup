@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 {% extends "layouts/base.html" %}
-{% load static %}
 
 {% block title %} {{ labname }}  {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}
-
-{% endblock stylesheets %}
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
 
@@ -23,15 +20,12 @@
                     <div class="main-body">
                         <div class="page-wrapper">
                             <!-- [ Main Content ] start -->
-                            <!--实验室表盘配置-->
-                            <div class="row">
-                                <!-- [ configuration table ] start -->
-                                {% include  "componments/welcome_register.html" %}
-                                
-                            </div>
-                            <!--实验室表盘可视化-->
-                            <div class="row">
-                                {% include "componments/graph.html" %}
+                            <div class="row row-cols-1">
+                                {% include "componments/aiprocess_run.html" %}
+                                {% include "componments/aiprocess_create.html" %}
+                                {% include "componments/watchMeter.html" %}
+
+
                             </div>
                             <!-- [ Main Content ] end -->
                         </div>
@@ -45,9 +39,5 @@
 
 {% endblock content %}
 
-
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}
-
-
-{% endblock javascripts %}
+{% block javascripts %}{% endblock javascripts %}

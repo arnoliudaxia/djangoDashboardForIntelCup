@@ -1,0 +1,33 @@
+<div class="col-xl-8 col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>监控画面</h5>
+            <span class="d-block m-t-5">当点击上方绿色的监控按钮时，下面就会显示实时的识别效果</span>
+        </div>
+        <div class="card-block table-border-style">
+
+
+            <img src="" id="watchImg" class="img-fluid"/>
+
+
+        </div>
+
+    </div>
+    <script>
+        let watchPID = 0;
+        function getPreview() {
+            let pid=watchPID;
+            if (watchPID===0)
+            {
+                return;
+            }
+            $.get(`labdb/preview/${pid}`, function (response) {
+                $("#watchImg")[0].src = response;
+            });
+        }
+        $(function (){
+           setInterval(getPreview, 2000);
+        });
+    </script>
+</div>
+

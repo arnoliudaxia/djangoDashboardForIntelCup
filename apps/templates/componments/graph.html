@@ -1,0 +1,197 @@
+{% load static %}
+<!-- chart.js -->
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js"
+        integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static '/assets/js/meterData.js' %}"></script>
+{% for meter in metersInLab %}
+    <div class="col-xl-6 col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>{{ meter.name }}</h5>
+                <span class="d-block m-t-5">默认显示记录过的所有数据，可以通过图标下面的按钮进行筛选</span>
+            </div>
+            <div class="card-block">
+                <canvas id="chart_{{ meter.GUID }}"></canvas>
+                {#                <button type="button" class="btn btn-primary" title="" onclick="recordData('{{ meter.GUID }}',20.1)">#}
+                {#                    随机生成#}
+                {#                </button>#}
+                {#                时间筛选#}
+                <div class="row justify-content-center">
+                    <div class="col-5">
+                        <div class=" btn-group mb-2 mr-2">
+                            <button type="button" class="btn btn-primary">过去</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                                    class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu bg-info">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(10)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            10
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            秒
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(30)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            30
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            秒
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(60)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            1
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            分钟
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(300)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            5
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            分钟
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(600)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            10
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            分钟
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(1800)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            30
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            分钟
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(3600)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            1
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            小时
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(43200)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            12
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            小时
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(86400)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            24
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            小时
+                                        </div>
+                                    </div>
+
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="changeFilterTime(-1)">
+                                    <div class="row">
+                                        <div class="col-4 text-left">
+                                            所有数据
+                                        </div>
+                                    </div>
+
+                                </a>
+                            </div>
+                            <span class="btn btn-primary">时间</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let filterTime = -1;//s为单位,-1代表获取所有数据
+        function changeFilterTime(time) {
+            filterTime = time;
+            retriveMeterData('{{ meter.GUID }}', chart_{{ meter.GUID|cut:"-"}}, filterTime);
+        }
+
+        var ctx_{{ meter.GUID|cut:"-"}} = document.getElementById('chart_{{ meter.GUID }}').getContext('2d');
+        var chart_{{ meter.GUID|cut:"-"}} = new Chart(ctx_{{ meter.GUID|cut:"-"}}, {
+            // 要创建的图表类型
+            type: 'line',
+
+            // 数据集
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "My First dataset",
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    color: 'rgb(255,255,255)',
+                    data: [],
+                }]
+            },
+
+            // 配置选项
+            options: {
+                legend: {
+                    labels: {
+                        // 这个更具体的字体属性覆盖全局属性
+                        fontColor: 'rgb(255,255,255)',
+                        defaultFontColor: 'rgb(255,255,255)',
+
+                    }
+                }
+            }
+        });
+
+        $(function () {
+            setInterval(function () {
+                retriveMeterData('{{ meter.GUID }}', chart_{{ meter.GUID|cut:"-"}}, filterTime);
+            }, 1500);
+        });
+    </script>
+{% endfor %}
+
+
+
+
+

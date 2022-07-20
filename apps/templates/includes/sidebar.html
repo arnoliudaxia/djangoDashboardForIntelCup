@@ -6,7 +6,7 @@
                 <div class="b-bg">
                     <i class="bi bi-file-earmark-bar-graph-fill"></i>
                 </div>
-                <span class="b-title">数据记录仪R800</span>
+                <span class="b-title">数云</span>
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
         </div>
@@ -21,53 +21,70 @@
                 <li class="nav-item pcoded-menu-caption">
                     <label>实验室</label>
                 </li>
-                <li class="nav-item {% if labname == "1" %} active {% endif %}">
-                    <a href="/lab.html?id=1" class="nav-link ">
-                        <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-                        <span class="pcoded-mtext">lab1</span>
-                    </a>
-                </li>
-                {% if debug == True %}
+                {% for labName in labNames %}
+                    <li class="nav-item {% if labName == currentLabName %} active {% endif %}">
+                        <a href="/lab/{{ labName }}" + class="nav-link ">
+                            <span class="pcoded-micon"><i class="feather icon-home"></i></span>
+                            <span class="pcoded-mtext">{{ labName }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
                 <li class="nav-item pcoded-menu-caption">
-                    <label>开发人员参考</label>
+                    <label>AI运行实例</label>
                 </li>
-                <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
-                    class="nav-item {% if 'index' in segment %} active {% endif %}">
-                    <a href="/UIExamples/layout.html" class="nav-link "><span class="pcoded-micon"><i class="bi bi-watch"></i></span><span
-                            class="pcoded-mtext">布局库</span></a>
-                </li>
-                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
-                    class="nav-item pcoded-hasmenu ">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
-                            class="pcoded-mtext">Components</span></a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="/UIExamples/bc_button.html" class="">Button</a></li>
-                        <li class=""><a href="/UIExamples/bc_badges.html" class="">Badges</a></li>
-                        <li class=""><a href="/UIExamples/bc_breadcrumb-pagination.html" class="">导航（面包屑和换页）</a></li>
-                        <li class=""><a href="/UIExamples/bc_collapse.html" class="">Toggle</a></li>
-                        <li class=""><a href="/UIExamples/bc_tabs.html" class="">Tabs & pills</a></li>
-                        <li class=""><a href="/UIExamples/bc_typography.html" class="">段落格式</a></li>
-                        <li class=""><a href="/UIExamples/icon-feather.html" class="">Feather ICON<span
-                                class="pcoded-badge label label-danger">NEW</span></a></li>
-                        <li class=""><a href="/UIExamples/form_elements.html" class="">表单</a></li>
-                        <li class=""><a href="/UIExamples/tbl_bootstrap.html" class="">表格</a></li>
-                    </ul>
-                </li>
-                <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe"
-                    class="nav-item pcoded-hasmenu">
-                    <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span
-                            class="pcoded-mtext">Authentication</span></a>
-                    <ul class="pcoded-submenu">
-                        <li class=""><a href="/register.html" class="" target="_blank">Sign UP</a></li>
-                        <li class=""><a href="/login.html" class="" target="_blank">Sign IN</a></li>
-                    </ul>
-                </li>
+                    <li class="nav-item {% if "/AI" == url %} active {% endif %}">
+                        <a href="/AI" + class="nav-link ">
+                            <span class="pcoded-micon"><i class="bi bi-robot"></i></span>
+                            <span class="pcoded-mtext">AI仪表监控</span>
+                        </a>
+                    </li>
 
-                <li data-username="Disabled Menu" class="nav-item">
-                    <a href="{% url 'logout' %}" class="nav-link">
-                        <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
-                    </a>
-                </li>
+                {% if debug == True %}
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>开发人员参考</label>
+                    </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+                        class="nav-item {% if 'index' in segment %} active {% endif %}">
+                        <a href="/UIExamples/layout.html" class="nav-link "><span class="pcoded-micon"><i
+                                class="bi bi-watch"></i></span><span
+                                class="pcoded-mtext">布局库</span></a>
+                    </li>
+                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                        class="nav-item pcoded-hasmenu ">
+                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-box"></i></span><span
+                                class="pcoded-mtext">Components</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="/UIExamples/bc_button.html" class="">Button</a></li>
+                            <li class=""><a href="/UIExamples/bc_badges.html" class="">Badges</a></li>
+                            <li class=""><a href="/UIExamples/bc_breadcrumb-pagination.html" class="">导航（面包屑和换页）</a>
+                            </li>
+                            <li class=""><a href="/UIExamples/bc_collapse.html" class="">Toggle</a></li>
+                            <li class=""><a href="/UIExamples/bc_tabs.html" class="">Tabs & pills</a></li>
+                            <li class=""><a href="/UIExamples/bc_typography.html" class="">段落格式</a></li>
+                            <li class=""><a href="/UIExamples/icon-feather.html" class="">Feather ICON<span
+                                    class="pcoded-badge label label-danger">NEW</span></a></li>
+                            <li class=""><a href="/UIExamples/form_elements.html" class="">表单</a></li>
+                            <li class=""><a href="/UIExamples/tbl_bootstrap.html" class="">表格</a></li>
+                        </ul>
+                    </li>
+                    <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe"
+                        class="nav-item pcoded-hasmenu">
+                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i
+                                class="feather icon-lock"></i></span><span
+                                class="pcoded-mtext">Authentication</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a href="/register.html" class="" target="_blank">Sign UP</a></li>
+                            <li class=""><a href="/login.html" class="" target="_blank">Sign IN</a></li>
+                        </ul>
+                    </li>
+
+                    <li data-username="Disabled Menu" class="nav-item">
+                        <a href="{% url 'logout' %}" class="nav-link">
+                            <span class="pcoded-micon"><i class="feather icon-power"></i></span><span
+                                class="pcoded-mtext">Logout</span>
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

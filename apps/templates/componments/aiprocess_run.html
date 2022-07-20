@@ -1,0 +1,66 @@
+{#管理现有进程#}
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <h5>正在运行</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="row">
+
+                {% for process in aiprocess %}
+                    {# pid #}
+                    <div class="col-md-2">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">PID</span>
+                            </div>
+                            <input type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                                   value="{{ process.pid }}" disabled readonly/>
+                        </div>
+
+                    </div>
+                    {# 视频流地址 #}
+                    <div class="col-4">
+                        <div class="input-group flex-nowrap">
+                            <select class="form-control col-3" id="inputGroupSelect01" disabled readonly>
+                                <option {% if "file" in process.takeinVideo %}selected {% endif %} value="file">
+                                    file://
+                                </option>
+                                <option {% if "http" in process.takeinVideo %}selected {% endif %} value="http">
+                                    http://
+                                </option>
+                                <option {% if "rtmp" in process.takeinVideo %}selected {% endif %} value="rtmp">
+                                    rtmp://
+                                </option>
+                            </select>
+                            <input type="text" class="form-control" aria-describedby="addon-wrapping"
+                                   value="{{ process.takeinVideo|cut:"://"|cut:"http"|cut:"rtmp"|cut:"file" }}"
+                                   disabled readonly/>
+                        </div>
+
+                    </div>
+                    {# 拍摄的表 #}
+                    <div class="col-auto">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">正在拍摄</span>
+                            </div>
+                            <input type="text" class="form-control" aria-describedby="inputGroup-sizing-default"
+                                   value="{{ process.belong2Meter }}" disabled readonly>
+                        </div>
+
+                    </div>
+                    {# 按钮(监控、停止) #}
+                    <div class="col-2">
+                            <button type="button" class="btn btn-success" onclick="watchPID=({{ process.pid }})">监控</button>
+                        <a href="/killai/{{ process.pid }}?redir={{ url }}">
+                            <button type="button" class="btn btn-danger">停止</button>
+                        </a>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>

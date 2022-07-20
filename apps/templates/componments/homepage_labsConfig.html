@@ -1,0 +1,42 @@
+<div class="col-xl-auto col-md-8">
+    <div class="card">
+        <div class="card-header">
+            <h5>实验室管理</h5>
+            <span class="d-block m-t-5">所有的仪表都必须归属于某个实验室，在这里可以创建管理所有实验室</span>
+        </div>
+        <div class="card-block table-border-style">
+            <div class="table-responsive">
+                <table class="table" id="labConfigTable">
+                    <thead>
+                    <tr>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+<!--    注册实验室UI       -->
+        <div class="row justify-content-center">
+            <div class="col-8">
+
+                <input type="text" class="form-control" placeholder="新实验室名" id="newLabName">
+
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary" title="" onclick="registerLab(this)">注册实验室</button>
+            </div>
+        </div>
+
+        <!--实验室UI-->
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <input type="text" class="form-control" placeholder="要删除的实验室名" id="LabName2Remove">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-danger" title="" onclick="removeLab(this)">删除实验室</button>
+            </div>
+        </div>
+    </div>
+</div>
+

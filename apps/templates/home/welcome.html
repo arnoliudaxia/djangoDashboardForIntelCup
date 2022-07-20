@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends "layouts/base.html" %}
-
+{% load static %}
 {% block title %} {{ labname }}  {% endblock %}
 
 <!-- Specific CSS goes HERE -->
@@ -8,136 +8,141 @@
 
 {% block content %}
 
-    <!-- [ Main Content ] start -->
-    <div class="pcoded-main-container">
-        <div class="pcoded-wrapper">
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
 
-            <div class="pcoded-content">
-                <div class="pcoded-inner-content">
-                    <!-- [ breadcrumb ] start -->
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
 
-                    <!-- [ breadcrumb ] end -->
-                    <div class="main-body">
-                        <div class="page-wrapper">
-                            <!-- [ Main Content ] start -->
-                            <div class="row">
-                                <div class="card">
-                                        <div class="card-header">
-                                            <h5>欢迎使用???</h5>
-                                        </div>
-                                        <div class="card-block">
-                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                                            </p>
-                                        </div>
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>欢迎使用实验室数据系统数云</h5>
                                 </div>
-                                {% include "componments/welcome_register.html" %}
+                                <div class="card-block">
+                                    <p>
+                                        数云是一个实验室<span class="bg-primary text-wrap" style="color: white">数据管理可视化平台</span>，它帮助科研人员完成各种实验中涉及到的大量数据的维护管理。
+                                        通过与<span class="bg-primary text-wrap" style="color: white">智能仪表识别AI</span>的配合，
+                                            可以<span class="bg-primary text-wrap" style="color: white">实时监控</span>记录实验室各种仪器的工作状态和数据。
+                                    </p>
+                                    <p>
+                                        数云也可以作为<span class="bg-primary text-wrap" style="color: white">工厂、小型企业、科研院所乃至个人</span>的数据管理平台。
+                                        数云的设计<span class="bg-primary text-wrap" style="color: white">无关于具体的项目</span>背景，甚至可以将其
+                                        作为一款<span class="bg-primary text-wrap" style="color: white">数据库交互工具</span>。
+                                        这样的设计使数云<span class="bg-primary text-wrap" style="color: white">易于部署</span>到几乎任何涉及到大数据的项目之中。
+                                    </p>
+                                </div>
                             </div>
-                            <!-- [ Main Content ] end -->
+{#                            {% include "componments/welcome_register.html" %}#}
+                            {% include "componments/homepage_labsConfig.html" %}
+
                         </div>
+                        <!-- [ Main Content ] end -->
                     </div>
                 </div>
             </div>
-
         </div>
+
     </div>
-    <!-- [ Main Content ] end -->
+</div>
+<!-- [ Main Content ] end -->
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-{# AJAX加载仪表配置 #}
-    <script>
-    function flashTable()
-    {
-            var Showtable=document.getElementById("meterConfigTable")
-    var tableHead=Showtable.children[0].children[0];
-    var tableBody=Showtable.children[1];
-    {#clear table content#}
-    tableHead.innerHTML="";
-    tableBody.innerHTML="";
-    var meterconfigs;
-    $.get("labdb/meterconfig",function (data) {
-      meterconfigs=data;
-      //添加表头，也是数据库里的所有字段
-      let labels=meterconfigs.labels;
-      //先添加一列#，表示第几个
-      let newth=document.createElement("th");
-      newth.innerText="#";
-      tableHead.appendChild(newth);
-      for(let i=0; i<labels.length; i++)
-        {
-            console.log(labels[i]);
-            let newth=document.createElement("th");
-            newth.innerText=labels[i];
-            tableHead.appendChild(newth);
-        }
-      //现在开始整表体
-      let meters=meterconfigs.meters;
-        for(let i=0; i<meters.length; i++)
-        {
-            console.log(meters[i]);
-            let newrow=document.createElement("tr");
-            let newNumber=document.createElement("th");
-                newNumber.innerText=i+1;
-            let newGUID=document.createElement("th");
-                newGUID.innerText=meters[i].meterGUID;
-            let newName=document.createElement("th");
-                newName.innerText=meters[i].meterName;
-            newrow.appendChild(newNumber);
-            newrow.appendChild(newGUID);
-            newrow.appendChild(newName);
+<!--    <script src="{% static '/assets/js/meterConfigForLab.js' %}"></script>-->
+<!--AJAX加载实验室配置-->
+<script>
+    function flashLabsTable() {
+        var Showtable = document.getElementById("labConfigTable")
+        var tableHead = Showtable.children[0].children[0];
+        var tableBody = Showtable.children[1];
+        // clear table content
+        tableHead.innerHTML = "";
+        tableBody.innerHTML = "";
 
+        $.get("labdb/labsconfig", function (data) {
+            var labconfigs = data;
+            //添加表头，也是数据库里的所有字段
+            let labels = labconfigs.labels;
 
-            tableBody.appendChild(newrow);
-        }
+            for (let i = 0; i < labels.length; i++) {
+                console.log(labels[i]);
+                let newth = document.createElement("th");
+                newth.innerText = labels[i];
+                tableHead.appendChild(newth);
+            }
+            //现在开始整表体
+            let labs = labconfigs.labs;
+            for (let i = 0; i < labs.length; i++) {
+                console.log(labs[i]);
+                let newrow = document.createElement("tr");
+                for (var key in labs[i]) {
+                    let newth = document.createElement("th");
+                    newth.innerText = labs[i][key];
+                    newrow.appendChild(newth);
 
-    });
-    }
-    $(function(){
-        flashTable();
-    });
+                }
 
-    function registerMeter(thisbtn)
-    {
-        thisbtn.innerText="注册中";
-        let meterName=document.getElementById("meterName").value;
-        if (meterName==='')
-        {
-            alert("请输入表名!");
-            return;
-        }
-        $.get("labdb/register?name="+meterName,function (response){
-            {#alert(response);#}
+                tableBody.appendChild(newrow);
+            }
 
-            flashTable();
-            thisbtn.innerText="注册仪表";
-        })
+        });
+
     }
 
-    function removeMeter(thisbtn)
-    {
-        thisbtn.innerText="删除中";
+    $(function () {
+        flashLabsTable();
+    });
 
-        let meterGUID=document.getElementById("meterGUID2Remove").value;
-        if(meterGUID==='')
-        {
-            alert("请输入表的GUID！可以从上方的表格中复制");
+    function registerLab(thisbtn) {
+        thisbtn.innerText = "注册中";
+        let newLabName = document.getElementById("newLabName").value;
+        if (newLabName === '') {
+            alert("请输入新实验室名!");
             return;
         }
-        $.get("labdb/remove?guid="+meterGUID,function (response){
-            if (response!="200")
+        $.get("labdb/registerLab?name=" + newLabName, function (response) {
             {
-                alert(response);
+                if (response !== "200") {
+
+                    alert(response);
+                }
+            }
+
+            flashLabsTable();
+            thisbtn.innerText = "注册实验室";
+            if (response=== "200") {
+                   location.reload();
 
             }
-            flashTable();
-            thisbtn.innerText="删除仪表";
+        })
+    }
+
+    function removeLab(thisbtn) {
+        thisbtn.innerText = "删除中";
+
+        let removeLabName = document.getElementById("LabName2Remove").value;
+        if (removeLabName === '') {
+            alert("请输入要移除的实验室名！可以从上方的表格中复制");
+            return;
+        }
+        $.get("labdb/removeLab?name=" + removeLabName, function (response) {
+            if (response !== "200") {
+                alert(response);
+            }
+            flashLabsTable();
+            thisbtn.innerText = "删除实验室";
 
         })
 
     }
-    </script>
-
-
+</script>
 {% endblock javascripts %}

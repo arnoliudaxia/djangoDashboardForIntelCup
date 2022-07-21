@@ -137,7 +137,7 @@ def createai(request):
     if url and meter:
         print('创建本地ai进程')
         print(AI_CMD+" "+url+" "+meter)
-        subp = subprocess.Popen(AI_CMD+" "+url+" "+meter, cwd=AI_PWD, shell=True)
+        subp = subprocess.Popen(AI_CMD+" "+url+" "+meter, cwd=AI_PWD, shell=True, executable='/bin/bash')
     return redirect(request.GET.get("redir"))
 
 
